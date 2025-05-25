@@ -1,4 +1,8 @@
- This is a Kotlin Multiplatform project targeting Android, iOS.
+<h1 align="center">Ai Wallpapers</h1> 
+
+AI Wallpaper is a cross-platform mobile app that delivers intelligently generated wallpapers tailored to your style and mood powered by cutting-edge AI. Whether you're on Android or iOS, enjoy a seamless, consistent experience with stunning visuals and smart customization.
+
+Built using Kotlin Multiplatform, AI Wallpaper offers blazing fast performance and a modern UI across both platforms.
 
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
