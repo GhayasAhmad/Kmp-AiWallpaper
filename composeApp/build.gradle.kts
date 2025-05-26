@@ -28,12 +28,6 @@ kotlin {
             isStatic = true
         }
     }
-
-//    compose.resources {
-//        publicResClass = false
-//        packageOfResClass = "me.sample.library.resources"
-//        generateResClass = auto
-//    }
     
     sourceSets {
         
