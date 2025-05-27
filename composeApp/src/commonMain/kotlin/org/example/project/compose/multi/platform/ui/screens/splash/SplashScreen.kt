@@ -16,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,14 +26,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
 import composemultiplatform.composeapp.generated.resources.Res
 import composemultiplatform.composeapp.generated.resources.ic_wallpapers
+import kotlinx.coroutines.delay
+import org.example.project.compose.multi.platform.ui.screens.home.HomeScreen
 import org.jetbrains.compose.resources.painterResource
 
 class SplashScreen() : Screen {
 
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.current
+
+        LaunchedEffect (Unit) {
+            delay(4000)
+            navigator?.push(HomeScreen())
+        }
         ScreenContent()
     }
 
