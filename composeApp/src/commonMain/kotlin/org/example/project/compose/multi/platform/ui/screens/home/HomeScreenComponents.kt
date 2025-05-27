@@ -31,7 +31,6 @@ fun HomeScreenContent(
 ) {
 
     androidx.compose.ui.backhandler.BackHandler(true) {
-        //your back pressed logic here
         onBackClick()
     }
 
@@ -41,14 +40,8 @@ fun HomeScreenContent(
             .padding(16.dp)
             .background(Color.White)
     ) {
-        TopBarHomeScreen()
-        Text(
-            text = "Wallpapers",
-            fontWeight = FontWeight.Medium,
-            fontSize = 20.sp,
-            modifier = Modifier.clickable(enabled = true) {
-                onBackClick()
-            }
+        TopBarHomeScreen(
+            onBackClick = onBackClick
         )
     }
 }
@@ -67,14 +60,14 @@ fun TopBarHomeScreen(
             painter = painterResource(Res.drawable.ic_back),
             contentDescription = "Back",
             modifier = Modifier.align(Alignment.CenterStart)
-                .clickable() {
-                    onBackClick
+                .clickable {
+                    onBackClick()
+                    println("DEBUG: BackPress Click")
                 }
         )
 
-        // Centered title
         Text(
-            text = "Manage Plans",
+            text = "Wallpapers",
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
             color = Color.Black,
