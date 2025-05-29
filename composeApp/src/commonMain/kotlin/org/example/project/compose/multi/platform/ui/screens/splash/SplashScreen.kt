@@ -39,6 +39,7 @@ class SplashScreen() : Screen {
     override fun Content() {
         val navigator = LocalNavigator.current
 
+
         LaunchedEffect (Unit) {
             delay(4000)
             navigator?.push(HomeScreen())
