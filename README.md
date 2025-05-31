@@ -18,7 +18,7 @@ Built using Kotlin Multiplatform, AI Wallpaper offers blazing fast performance a
 
 ## Open API
 
-<img src="https://play-lh.googleusercontent.com/CEZHWF09xolzwB9XmfNlIIiqKE1zotx8o9gZ9ULRvxhs8V6V0gXMMgaFCUg5DR71vA=w480-h960-rw" align="right" width="21%"/>
+<img src="https://play-lh.googleusercontent.com/CEZHWF09xolzwB9XmfNlIIiqKE1zotx8o9gZ9ULRvxhs8V6V0gXMMgaFCUg5DR71vA=w480-h960-rw" align="right" width="15%"/>
 
 Ai Wallpaper using the [Pexels](https://www.pexels.com/api/) for constructing RESTful API.<br>
 Ai Wallpaper provides a RESTful API interface to highly detailed objects built from thousands of lines of data related to Pokémon.
@@ -32,11 +32,11 @@ Ai Wallpaper provides a RESTful API interface to highly detailed objects built f
 [![Linkedin](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/ghayasahmad47/)
 [![Gmail](https://img.shields.io/badge/-Gmail-c14438?style=flat&logo=Gmail&logoColor=white)](mailto:sheikhghayas47@gmail.com)
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat&logo=Instagram&logoColor=white)](https://www.instagram.com/gcodes._/)
-
 </br>
 
 
-**Find this repository useful? :heart:**
+*Find this repository useful? :heart:*
+</br>
 Support it by joining __[stargazers](https://github.com/GhayasAhmad/Kmp-AiWallpaper/stargazers)__ for this repository. :star: <br>
 Also, __[follow me](https://github.com/GhayasAhmad)__ on GitHub for my next creations! 🤩
 
