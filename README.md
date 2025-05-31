@@ -27,5 +27,6 @@ Built using Kotlin Multiplatform, AI Wallpaper offers blazing fast performance a
 
 </br>
 
-If this repository helped you or you found it useful, a small token of appreciation goes a long way! ☕ Click the star button on the top right corner and keep the momentum going. Your support means the world!
+> [!NOTE]
+> If this repository helped you or you found it useful, a small token of appreciation goes a long way! ☕ Click the star button on the top right corner and keep the momentum going. Your support means the world!
 
