@@ -16,6 +16,14 @@ Built using Kotlin Multiplatform, AI Wallpaper offers blazing fast performance a
 > This repository contains an app built with Kotlin Multiplatform (KMP) and Compose Multiplatform (CMP) targeting both iOS and Android. Created as a learning project to explore cross-platform development and UI sharing across platforms.
 
 
+## Open API
+
+<img src="https://images.app.goo.gl/oFsVZrPXoT4JLWW96" align="right" width="21%"/>
+
+Ai Wallpaper using the [Pexels](https://www.pexels.com/api/) for constructing RESTful API.<br>
+Ai Wallpaper provides a RESTful API interface to highly detailed objects built from thousands of lines of data related to Pokémon.
+
+
 
 **Connect with me on**
 </br>
