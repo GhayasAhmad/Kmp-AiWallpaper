@@ -26,7 +26,7 @@ Ai Wallpaper provides a RESTful API interface to stunning, high-resolution wallp
 <br>
 <br>
 
-## Find this repository useful? :heart:*
+## Find this repository useful? :heart:
 
 Support it by joining __[stargazers](https://github.com/GhayasAhmad/Kmp-AiWallpaper/stargazers)__ for this repository. :star: <br>
 Also, __[follow me](https://github.com/GhayasAhmad)__ on GitHub for my next creations! 🤩
