@@ -27,6 +27,7 @@ Built using Kotlin Multiplatform, AI Wallpaper offers blazing fast performance a
 
 </br>
 
-> [!NOTE]
-> If this repository helped you or you found it useful, a small token of appreciation goes a long way! ☕ Click the star button on the top right corner and keep the momentum going. Your support means the world!
+## Find this repository useful? :heart:
+Support it by joining __[stargazers](https://github.com/GhayasAhmad/Kmp-AiWallpaper/stargazers)__ for this repository. :star: <br>
+Also, __[follow me](https://github.com/GhayasAhmad)__ on GitHub for my next creations! 🤩
 
