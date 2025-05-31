@@ -5,22 +5,24 @@ AI Wallpaper is a cross-platform mobile app that delivers intelligently generate
 Built using Kotlin Multiplatform, AI Wallpaper offers blazing fast performance and a modern UI across both platforms.
 
 
-##Demo
+## Demo
 
 <img width="1722" alt="Screenshot 2025-05-31 at 11 06 07 AM" src="https://github.com/user-attachments/assets/12fbf501-a5df-4a12-864e-11ac0283b5a0" />
 
+> [!important]
+> This repository contains an app built with Kotlin Multiplatform (KMP) and Compose Multiplatform (CMP) targeting both iOS and Android. Created as a learning project to explore cross-platform development and UI sharing across platforms.
 
 
 
-* `composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+**Connect with me on**
+</br>
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+[![Github](https://img.shields.io/badge/-Github-000?style=flat&logo=Github&logoColor=white)](https://github.com/GhayasAhmad)
+[![Linkedin](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/ghayasahmad47/)
+[![Gmail](https://img.shields.io/badge/-Gmail-c14438?style=flat&logo=Gmail&logoColor=white)](mailto:sheikhghayas47@gmail.com)
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat&logo=Instagram&logoColor=white)](https://www.instagram.com/gcodes._/)
 
+</br>
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+If this repository helped you or you found it useful, a small token of appreciation goes a long way! ☕ Click the star button on the top right corner and keep the momentum going. Your support means the world!
+
