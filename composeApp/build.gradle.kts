@@ -46,10 +46,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.ui.backhandler)
 
-
-
             // Navigator
             implementation(libs.voyager.navigator)
+
+            //Ktor
+            implementation(libs.ktor.client.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
