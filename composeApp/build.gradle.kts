@@ -51,6 +51,9 @@ kotlin {
 
             //Ktor
             implementation(libs.ktor.client.core)
+
+            //koin
+            implementation(libs.bundles.koin.common)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
