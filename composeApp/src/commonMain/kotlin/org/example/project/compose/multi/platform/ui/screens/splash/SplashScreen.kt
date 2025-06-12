@@ -40,10 +40,10 @@ class SplashScreen() : Screen {
         val navigator = LocalNavigator.current
 
 
-//        LaunchedEffect (Unit) {
-//            delay(4000)
-//            navigator?.push(HomeScreen())
-//        }
+        LaunchedEffect (Unit) {
+            delay(4000)
+            navigator?.push(HomeScreen())
+        }
         ScreenContent()
     }
 

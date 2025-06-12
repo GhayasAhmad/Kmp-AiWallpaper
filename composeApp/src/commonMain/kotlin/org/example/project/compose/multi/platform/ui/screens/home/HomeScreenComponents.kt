@@ -26,19 +26,32 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @OptIn(ExperimentalComposeUiApi::class)
 @Preview
 @Composable
-fun HomeScreenContent(
-    onBackClick: () -> Unit
-) {
-
-    androidx.compose.ui.backhandler.BackHandler(true) {
-        onBackClick()
-    }
-
+fun HomeScreenContentPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
             .background(Color.White)
+    ) {
+        TopBarHomeScreen()
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun HomeScreenContent(
+    onBackClick: () -> Unit
+) {
+
+    androidx.compose.ui.backhandler.BackHandler(true) {
+        onBackClick.invoke()
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(16.dp)
     ) {
         TopBarHomeScreen(
             onBackClick = onBackClick
@@ -59,9 +72,10 @@ fun TopBarHomeScreen(
         Icon(
             painter = painterResource(Res.drawable.ic_back),
             contentDescription = "Back",
-            modifier = Modifier.align(Alignment.CenterStart)
+            modifier = Modifier
+                .align(Alignment.CenterStart)
                 .clickable {
-                    onBackClick()
+                    onBackClick.invoke()
                     println("DEBUG: BackPress Click")
                 }
         )
