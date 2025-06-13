@@ -4,10 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -68,24 +70,25 @@ fun TopBarHomeScreen(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
+            .padding(16.dp)
     ) {
-        Icon(
-            painter = painterResource(Res.drawable.ic_back),
-            contentDescription = "Back",
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .clickable {
-                    onBackClick.invoke()
-                    println("DEBUG: BackPress Click")
-                }
-        )
+//        Icon(
+//            painter = painterResource(Res.drawable.ic_back),
+//            contentDescription = "Back",
+//            modifier = Modifier
+//                .align(Alignment.CenterStart)
+//                .clickable {
+//                    onBackClick.invoke()
+//                    println("DEBUG: BackPress Click")
+//                }
+//        )
 
         Text(
             text = "Wallpapers",
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
             color = Color.Black,
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.CenterStart)
         )
     }
 }
