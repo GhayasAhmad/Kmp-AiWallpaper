@@ -1,4 +1,4 @@
-package org.example.project.compose.multi.platform.ui.screens.home
+package org.example.project.compose.multi.platform.ui.screens.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,9 +33,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun SearchBar() {
     Box(
         modifier = Modifier
+            .padding(16.dp)
             .fillMaxWidth()
             .height(40.dp)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(
                 Color.Black
             )
@@ -75,8 +76,6 @@ fun SearchBar() {
                 )
             )
         }
-
-
     }
 }
 
