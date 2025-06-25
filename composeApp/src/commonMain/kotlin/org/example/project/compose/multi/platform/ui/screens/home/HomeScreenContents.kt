@@ -39,7 +39,7 @@ fun HomeScreenContent(
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
-        SearchBar()
+//        SearchBar()
         Spacer(modifier = Modifier.padding(top = 8.dp))
         FeatureCard()
     }
