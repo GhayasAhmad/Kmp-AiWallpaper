@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import composemultiplatform.composeapp.generated.resources.Res
-import composemultiplatform.composeapp.generated.resources.ic_wallpapers
+import composemultiplatformaiwallpaper.composeapp.generated.resources.Res
+import composemultiplatformaiwallpaper.composeapp.generated.resources.ic_wallpapers
 import kotlinx.coroutines.delay
 import org.example.project.compose.multi.platform.ui.screens.home.HomeScreen
 import org.jetbrains.compose.resources.painterResource

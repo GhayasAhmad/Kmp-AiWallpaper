@@ -9,7 +9,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    MaterialTheme(
+//        typography = AppTypography
+    ) {
         Navigator(SplashScreen())
     }
 }

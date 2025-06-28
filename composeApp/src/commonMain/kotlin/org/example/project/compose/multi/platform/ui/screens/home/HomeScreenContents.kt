@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.example.project.compose.multi.platform.ui.screens.home.components.FeatureCard
-import org.example.project.compose.multi.platform.ui.screens.home.components.SearchBar
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -39,7 +38,6 @@ fun HomeScreenContent(
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
-//        SearchBar()
         Spacer(modifier = Modifier.padding(top = 8.dp))
         FeatureCard()
     }

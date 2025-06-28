@@ -1,4 +1,4 @@
-rootProject.name = "ComposeMultiPlatform"
+rootProject.name = "ComposeMultiPlatformAiWallpaper"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

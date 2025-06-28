@@ -3,6 +3,7 @@ package org.example.project.compose.multi.platform.ui.screens.home
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import org.example.project.compose.multi.platform.ui.screens.exit.ExitScreen
 
 class HomeScreen() : Screen {
 
@@ -11,7 +12,7 @@ class HomeScreen() : Screen {
         val navigator = LocalNavigator.current
         HomeScreenContent(
             onBackClick = {
-                navigator?.pop()
+                navigator?.push(ExitScreen())
             }
         )
     }

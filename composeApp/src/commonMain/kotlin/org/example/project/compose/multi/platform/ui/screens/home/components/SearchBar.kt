@@ -23,8 +23,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composemultiplatform.composeapp.generated.resources.Res
-import composemultiplatform.composeapp.generated.resources.ic_back
+import composemultiplatformaiwallpaper.composeapp.generated.resources.Res
+import composemultiplatformaiwallpaper.composeapp.generated.resources.ic_back
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
