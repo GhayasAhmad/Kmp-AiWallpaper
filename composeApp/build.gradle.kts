@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.implementation
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -34,7 +32,6 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.ktor.client.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -51,7 +48,7 @@ kotlin {
             implementation(libs.voyager.navigator)
 
             //Ktor
-//            implementation(libs.ktor.client.core)
+            implementation(libs.bundles.ktor.common)
 
             //koin
             implementation(libs.bundles.koin.common)
@@ -64,7 +61,7 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         appleMain.dependencies {
-            implementation(libs.ktor.client.darwin)
+
         }
     }
 }

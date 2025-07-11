@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -45,7 +46,8 @@ fun FeatureCard() {
             text = "Featured",
             modifier = Modifier
                 .padding(start = 16.dp),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.padding(top = 8.dp))
         LazyRow(
