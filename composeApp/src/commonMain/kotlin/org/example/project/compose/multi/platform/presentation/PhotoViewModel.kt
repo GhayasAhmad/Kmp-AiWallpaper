@@ -10,11 +10,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.compose.multi.platform.domain.usecases.GetCuratedPhotosUseCase
 import org.example.project.compose.multi.platform.domain.usecases.SearchPhotosUseCase
+import org.example.project.compose.multi.platform.presentation.intent.PhotoIntent
+import org.example.project.compose.multi.platform.presentation.state.PhotoViewState
 
 class PhotoViewModel(
     private val getCuratedPhotosUseCase: GetCuratedPhotosUseCase,
     private val searchPhotosUseCase: SearchPhotosUseCase
 ) : ViewModel() {
+
     private val _viewState = MutableStateFlow(PhotoViewState())
     val viewState = _viewState.asStateFlow()
 

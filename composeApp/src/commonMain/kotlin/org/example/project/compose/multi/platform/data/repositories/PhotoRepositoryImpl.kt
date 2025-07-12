@@ -4,7 +4,10 @@ import org.example.project.compose.multi.platform.data.api.PexelsApiService
 import org.example.project.compose.multi.platform.domain.models.PexelsResponse
 import org.example.project.compose.multi.platform.domain.repositories.PhotoRepository
 
-class PhotoRepositoryImpl(private val apiService: PexelsApiService) : PhotoRepository {
+class PhotoRepositoryImpl(
+    private val apiService: PexelsApiService
+) : PhotoRepository {
+
     override suspend fun getCuratedPhotos(page: Int, perPage: Int): Result<PexelsResponse> {
         return try {
             val response = apiService.getCuratedPhotos(page, perPage)

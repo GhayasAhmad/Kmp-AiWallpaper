@@ -1,4 +1,4 @@
-package org.example.project.compose.multi.platform.presentation
+package org.example.project.compose.multi.platform.presentation.state
 
 import org.example.project.compose.multi.platform.domain.models.Photo
 

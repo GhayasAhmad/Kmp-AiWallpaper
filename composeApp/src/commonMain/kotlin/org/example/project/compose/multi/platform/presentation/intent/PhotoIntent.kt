@@ -1,4 +1,4 @@
-package org.example.project.compose.multi.platform.presentation
+package org.example.project.compose.multi.platform.presentation.intent
 
 sealed class PhotoIntent {
     object LoadCuratedPhotos : PhotoIntent()

@@ -7,7 +7,10 @@ import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import org.example.project.compose.multi.platform.domain.models.PexelsResponse
 
-class PexelsApiService(private val httpClient: HttpClient) {
+class PexelsApiService(
+    private val httpClient: HttpClient
+) {
+
     companion object {
         private const val BASE_URL = "https://api.pexels.com/v1"
         private const val API_KEY = "Add api key here."
