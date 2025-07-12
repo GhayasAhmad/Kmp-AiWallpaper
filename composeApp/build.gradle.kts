@@ -1,11 +1,19 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+//    id("com.codingfeline.buildkonfig") version "0.17.1"
+}
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
 }
 
 kotlin {
@@ -96,4 +104,16 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
+
+//buildKonfig {
+//    defaultConfig {
+//        val apiKey: String = gradleLocalProperties(rootDir).getProperty("API_KEY")
+//
+//        require(apiKey.isNotEmpty()) {
+//            "Register your api key from developer and place it in local.properties as `API_KEY`"
+//        }
+//
+//        buildConfigField(STRING, "API_KEY", apiKey)
+//    }
+//}
 
