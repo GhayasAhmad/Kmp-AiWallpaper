@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.compose.multi.platform.domain.usecases.GetCuratedPhotosUseCase
 import org.example.project.compose.multi.platform.domain.usecases.SearchPhotosUseCase
@@ -18,7 +17,7 @@ class PhotoViewModel(
     private val searchPhotosUseCase: SearchPhotosUseCase
 ) : ViewModel() {
 
-    private val _viewState = MutableStateFlow(PhotoViewState())
+    private val _viewState = MutableStateFlow<PhotoViewState>(PhotoViewState.NotStarted)
     val viewState = _viewState.asStateFlow()
 
     private val _effects = MutableSharedFlow<PhotoEffect>()
@@ -35,23 +34,25 @@ class PhotoViewModel(
 
     private fun loadCuratedPhotos() {
         viewModelScope.launch {
-            _viewState.update { it.copy(isLoading = true, error = null, searchQuery = "") }
+            _viewState.value = PhotoViewState.Loading
 
             getCuratedPhotosUseCase(page = 1).fold(
                 onSuccess = { response ->
-                    _viewState.update {
-                        it.copy(
-                            isLoading = false,
-                            photos = response.photos,
-                            currentPage = response.page,
-                            hasMorePages = response.nextPage != null
-                        )
-                    }
+                    _viewState.value = PhotoViewState.Success(
+                        photos = response.photos,
+                        currentPage = response.page,
+                        hasMorePages = response.nextPage != null,
+                        searchQuery = ""
+                    )
                 },
                 onFailure = { exception ->
-                    _viewState.update {
-                        it.copy(isLoading = false, error = exception.message)
-                    }
+                    _viewState.value = PhotoViewState.Error(
+                        message = exception.message ?: "Unknown error",
+                        photos = emptyList(),
+                        currentPage = 1,
+                        hasMorePages = true,
+                        searchQuery = ""
+                    )
                     _effects.emit(PhotoEffect.ShowError(exception.message ?: "Unknown error"))
                 }
             )
@@ -65,25 +66,25 @@ class PhotoViewModel(
         }
 
         viewModelScope.launch {
-            _viewState.update {
-                it.copy(isLoading = true, error = null, searchQuery = query)
-            }
+            _viewState.value = PhotoViewState.Loading
 
             searchPhotosUseCase(query, page = 1).fold(
                 onSuccess = { response ->
-                    _viewState.update {
-                        it.copy(
-                            isLoading = false,
-                            photos = response.photos,
-                            currentPage = response.page,
-                            hasMorePages = response.nextPage != null
-                        )
-                    }
+                    _viewState.value = PhotoViewState.Success(
+                        photos = response.photos,
+                        currentPage = response.page,
+                        hasMorePages = response.nextPage != null,
+                        searchQuery = query
+                    )
                 },
                 onFailure = { exception ->
-                    _viewState.update {
-                        it.copy(isLoading = false, error = exception.message)
-                    }
+                    _viewState.value = PhotoViewState.Error(
+                        message = exception.message ?: "Search failed",
+                        photos = emptyList(),
+                        currentPage = 1,
+                        hasMorePages = true,
+                        searchQuery = query
+                    )
                     _effects.emit(PhotoEffect.ShowError(exception.message ?: "Search failed"))
                 }
             )
@@ -92,31 +93,72 @@ class PhotoViewModel(
 
     private fun loadMorePhotos() {
         val currentState = _viewState.value
-        if (currentState.isLoadingMore || !currentState.hasMorePages) return
+
+        val (currentPhotos, currentPage, hasMorePages, searchQuery) = when (currentState) {
+            is PhotoViewState.Success -> {
+                Tuple4(
+                    currentState.photos,
+                    currentState.currentPage,
+                    currentState.hasMorePages,
+                    currentState.searchQuery
+                )
+            }
+
+            is PhotoViewState.LoadingMore -> {
+                Tuple4(
+                    currentState.photos,
+                    currentState.currentPage,
+                    currentState.hasMorePages,
+                    currentState.searchQuery
+                )
+            }
+
+            is PhotoViewState.Error -> {
+                Tuple4(
+                    currentState.photos,
+                    currentState.currentPage,
+                    currentState.hasMorePages,
+                    currentState.searchQuery
+                )
+            }
+
+            else -> return
+        }
+
+        if (!hasMorePages) return
 
         viewModelScope.launch {
-            _viewState.update { it.copy(isLoadingMore = true) }
+            _viewState.value = PhotoViewState.LoadingMore(
+                photos = currentPhotos,
+                currentPage = currentPage,
+                hasMorePages = hasMorePages,
+                searchQuery = searchQuery
+            )
 
-            val nextPage = currentState.currentPage + 1
-            val result = if (currentState.searchQuery.isNotBlank()) {
-                searchPhotosUseCase(currentState.searchQuery, nextPage)
+            val nextPage = currentPage + 1
+            val result = if (searchQuery.isNotBlank()) {
+                searchPhotosUseCase(searchQuery, nextPage)
             } else {
                 getCuratedPhotosUseCase(nextPage)
             }
 
             result.fold(
                 onSuccess = { response ->
-                    _viewState.update {
-                        it.copy(
-                            isLoadingMore = false,
-                            photos = it.photos + response.photos,
-                            currentPage = response.page,
-                            hasMorePages = response.nextPage != null
-                        )
-                    }
+                    _viewState.value = PhotoViewState.Success(
+                        photos = currentPhotos + response.photos,
+                        currentPage = response.page,
+                        hasMorePages = response.nextPage != null,
+                        searchQuery = searchQuery
+                    )
                 },
                 onFailure = { exception ->
-                    _viewState.update { it.copy(isLoadingMore = false) }
+                    _viewState.value = PhotoViewState.Error(
+                        message = "Failed to load more photos",
+                        photos = currentPhotos,
+                        currentPage = currentPage,
+                        hasMorePages = hasMorePages,
+                        searchQuery = searchQuery
+                    )
                     _effects.emit(PhotoEffect.ShowError("Failed to load more photos"))
                 }
             )
@@ -125,10 +167,24 @@ class PhotoViewModel(
 
     private fun retryLoading() {
         val currentState = _viewState.value
-        if (currentState.searchQuery.isNotBlank()) {
-            searchPhotos(currentState.searchQuery)
+        val searchQuery = when (currentState) {
+            is PhotoViewState.Success -> currentState.searchQuery
+            is PhotoViewState.LoadingMore -> currentState.searchQuery
+            is PhotoViewState.Error -> currentState.searchQuery
+            else -> ""
+        }
+
+        if (searchQuery.isNotBlank()) {
+            searchPhotos(searchQuery)
         } else {
             loadCuratedPhotos()
         }
     }
 }
+
+private data class Tuple4<A, B, C, D>(
+    val first: A,
+    val second: B,
+    val third: C,
+    val fourth: D
+)

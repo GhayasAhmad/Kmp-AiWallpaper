@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-//    id("com.codingfeline.buildkonfig") version "0.17.1"
+    alias(libs.plugins.kotlinSerialization)
 }
 
 val localProperties = Properties()
@@ -51,6 +51,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.ui.backhandler)
+            implementation(libs.kotlinx.serialization.json)
+
 
             // Navigator
             implementation(libs.voyager.navigator)
@@ -59,7 +61,7 @@ kotlin {
             implementation(libs.bundles.ktor.common)
 
             //koin
-            implementation(libs.bundles.koin.common)
+            implementation(libs.bundles.koin)
 
             //Coil
             implementation(libs.coil.compose)

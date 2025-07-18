@@ -18,7 +18,8 @@ ktorClientCore = "3.2.1"
 voyagerNavigator = "1.1.0-beta03"
 back-handler = "1.8.2"
 koin = "4.1.0"
-koin-compose = "4.1.0"
+kotlinx-serialization = "1.9.0"
+
 
 
 [libraries]
@@ -42,14 +43,16 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientCore" }
 ui-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "back-handler" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerNavigator" }
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
-
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+koin-compose-viewmodel-nav = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
 
 [bundles]
-koin-common = [
-    "koin-core",
-    "koin-compose"
+koin = [
+    "koin-android",
+    "koin-compose-viewmodel",
+    "koin-compose-viewmodel-nav"
 ]
 
 ktor-common = [
@@ -67,4 +70,5 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization" }
 
