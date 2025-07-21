@@ -11,7 +11,7 @@ data class Photo(
     val url: String,
     val photographer: String,
     @SerialName("photographer_url") val photographerUrl: String,
-    @SerialName("photographer_id") val photographerId: Int,
+    @SerialName("photographer_id") val photographerId: Long,
     @SerialName("avg_color") val avgColor: String,
     val src: PhotoSrc,
     val liked: Boolean,
