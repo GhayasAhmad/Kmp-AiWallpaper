@@ -66,6 +66,9 @@ kotlin {
             //Coil
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+
+            //Logger
+            implementation(libs.kermit)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

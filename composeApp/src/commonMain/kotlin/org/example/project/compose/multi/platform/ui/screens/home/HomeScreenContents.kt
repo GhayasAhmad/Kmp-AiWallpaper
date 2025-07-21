@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import org.example.project.compose.multi.platform.presentation.PhotoViewModel
 import org.example.project.compose.multi.platform.presentation.intent.PhotoIntent
 import org.example.project.compose.multi.platform.presentation.state.PhotoViewState
@@ -42,7 +43,7 @@ fun HomeScreenContent(
 
     when (state) {
         is PhotoViewState.Error -> {
-            print("Error occurred")
+            Logger.d("Error occurred ${(state as PhotoViewState.Error).message})")
         }
 
         PhotoViewState.Loading -> {

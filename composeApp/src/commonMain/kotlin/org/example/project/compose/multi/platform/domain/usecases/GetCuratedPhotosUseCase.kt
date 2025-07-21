@@ -8,7 +8,7 @@ class GetCuratedPhotosUseCase(
 ) {
     suspend operator fun invoke(
         page: Int = 1,
-        perPage: Int = 20
+        perPage: Int = 80
     ): Result<PexelsResponse> {
         return repository.getCuratedPhotos(page, perPage)
     }

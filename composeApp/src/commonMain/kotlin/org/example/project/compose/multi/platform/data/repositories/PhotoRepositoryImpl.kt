@@ -10,7 +10,9 @@ class PhotoRepositoryImpl(
 
     override suspend fun getCuratedPhotos(page: Int, perPage: Int): Result<PexelsResponse> {
         return try {
-            val response = apiService.getCuratedPhotos(page, perPage)
+            val response = apiService.getCuratedPhotos(page, perPage) ?: return Result.failure(
+                NullPointerException("Response is null")
+            )
             Result.success(response)
         } catch (e: Exception) {
             Result.failure(e)

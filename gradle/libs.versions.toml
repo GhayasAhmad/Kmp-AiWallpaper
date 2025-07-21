@@ -13,6 +13,7 @@ androidx-testExt = "1.2.1"
 coilCompose = "3.2.0"
 composeMultiplatform = "1.8.2"
 junit = "4.13.2"
+kermit = "2.0.6"
 kotlin = "2.2.0"
 ktorClientCore = "3.2.1"
 voyagerNavigator = "1.1.0-beta03"
@@ -25,6 +26,7 @@ kotlinx-serialization = "1.9.0"
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coilCompose" }
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }
