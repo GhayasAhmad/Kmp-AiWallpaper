@@ -20,30 +20,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import org.example.project.compose.multi.platform.domain.models.Photo
+import kotlin.math.absoluteValue
 
 @Composable
 fun PhotoListItemWithAspectRatio(
     photo: Photo,
 ) {
+    val aspectRatio = remember(photo.id) {
+        if (photo.width > 0 && photo.height > 0) {
+            (photo.width.toFloat() / photo.height.toFloat()).coerceIn(0.5f, 2.0f)
+        } else {
+            val ratios = listOf(0.6f, 0.7f, 0.8f, 1.0f, 1.2f, 1.3f)
+            ratios[photo.id.hashCode().absoluteValue % ratios.size]
+        }
+    }
 
     data class ImageState(
-        val size: IntSize = IntSize.Zero,
         val isLoading: Boolean = true,
         val hasError: Boolean = false
     )
 
     var imageState by remember { mutableStateOf(ImageState()) }
-
-    val aspectRatio = if (imageState.size != IntSize.Zero && !imageState.isLoading) {
-        val ratio = imageState.size.width.toFloat() / imageState.size.height.toFloat()
-        ratio.coerceIn(0.5f, 2.0f)
-    } else {
-        2f / 3f
-    }
 
     Column(
         modifier = Modifier
@@ -53,7 +53,7 @@ fun PhotoListItemWithAspectRatio(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(aspectRatio)
+                .aspectRatio(aspectRatio) // Consistent aspect ratio
                 .clip(RoundedCornerShape(16.dp))
         ) {
             if (imageState.isLoading && !imageState.hasError) {
@@ -69,13 +69,8 @@ fun PhotoListItemWithAspectRatio(
                 contentDescription = photo.alt,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop,
-                onSuccess = { result ->
-                    val intrinsicSize = result.painter.intrinsicSize
+                onSuccess = {
                     imageState = ImageState(
-                        size = IntSize(
-                            width = if (intrinsicSize.width.isFinite()) intrinsicSize.width.toInt() else 400,
-                            height = if (intrinsicSize.height.isFinite()) intrinsicSize.height.toInt() else 600
-                        ),
                         isLoading = false,
                         hasError = false
                     )
