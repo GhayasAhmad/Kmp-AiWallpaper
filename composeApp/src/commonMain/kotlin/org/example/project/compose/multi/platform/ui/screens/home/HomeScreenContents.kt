@@ -19,11 +19,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -31,37 +26,26 @@ import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.example.project.compose.multi.platform.presentation.PhotoScreenModel
-import org.example.project.compose.multi.platform.presentation.intent.PhotoIntent
 import org.example.project.compose.multi.platform.presentation.state.PhotoViewState
 import org.example.project.compose.multi.platform.ui.screens.home.components.FeatureCard
 import org.example.project.compose.multi.platform.ui.screens.home.components.PhotoListItemWithAspectRatio
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-//@OptIn(ExperimentalComposeUiApi::class)
-//@Preview
-//@Composable
-//fun HomeScreenContentPreview() {
-//    HomeScreenContent(
-//        onBackClick = {}
-//    )
-//}
+@Preview
+@Composable
+fun HomeScreenContentPreview() {
+    HomeScreenContent(
+        state = PhotoViewState.Loading,
+        onBackClick = {}
+    )
+}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomeScreenContent(
-    viewModel: PhotoScreenModel,
+    state: PhotoViewState,
     onBackClick: () -> Unit
 ) {
-    val hasFetched = rememberSaveable { mutableStateOf(false) }
-
-    val state by viewModel.viewState.collectAsState()
-
-    LaunchedEffect(Unit) {
-        if (!hasFetched.value) {
-            hasFetched.value = true
-            viewModel.handleIntent(PhotoIntent.LoadCuratedPhotos)
-        }
-    }
 
     BackHandler(true) {
         onBackClick()
