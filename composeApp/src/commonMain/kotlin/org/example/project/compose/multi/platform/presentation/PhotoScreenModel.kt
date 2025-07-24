@@ -1,9 +1,12 @@
 package org.example.project.compose.multi.platform.presentation
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -12,16 +15,18 @@ import org.example.project.compose.multi.platform.domain.usecases.SearchPhotosUs
 import org.example.project.compose.multi.platform.presentation.intent.PhotoIntent
 import org.example.project.compose.multi.platform.presentation.state.PhotoViewState
 
-class PhotoViewModel(
+class PhotoScreenModel(
     private val getCuratedPhotosUseCase: GetCuratedPhotosUseCase,
     private val searchPhotosUseCase: SearchPhotosUseCase
-) : ViewModel() {
+) : ScreenModel {
 
-    private val _viewState = MutableStateFlow<PhotoViewState>(PhotoViewState.NotStarted)
-    val viewState = _viewState.asStateFlow()
+    private val _viewState = MutableStateFlow<PhotoViewState>(
+        PhotoViewState.NotStarted
+    )
+    val viewState: StateFlow<PhotoViewState> = _viewState.asStateFlow()
 
     private val _effects = MutableSharedFlow<PhotoEffect>()
-    val effects = _effects.asSharedFlow()
+    val effects: SharedFlow<PhotoEffect> = _effects.asSharedFlow()
 
     fun handleIntent(intent: PhotoIntent) {
         when (intent) {
@@ -33,13 +38,14 @@ class PhotoViewModel(
     }
 
     private fun loadCuratedPhotos() {
-        viewModelScope.launch {
+        screenModelScope.launch {
             _viewState.value = PhotoViewState.Loading
 
             getCuratedPhotosUseCase(page = 1).fold(
                 onSuccess = { response ->
                     _viewState.value = PhotoViewState.Success(
                         photos = response.photos,
+                        featuredPhotos = response.photos.shuffled().take(10),
                         currentPage = response.page,
                         hasMorePages = response.nextPage != null,
                         searchQuery = ""
@@ -48,7 +54,6 @@ class PhotoViewModel(
                 onFailure = { exception ->
                     _viewState.value = PhotoViewState.Error(
                         message = exception.message ?: "Unknown error",
-                        photos = emptyList(),
                         currentPage = 1,
                         hasMorePages = true,
                         searchQuery = ""
@@ -65,13 +70,14 @@ class PhotoViewModel(
             return
         }
 
-        viewModelScope.launch {
+        screenModelScope.launch {
             _viewState.value = PhotoViewState.Loading
 
             searchPhotosUseCase(query, page = 1).fold(
                 onSuccess = { response ->
                     _viewState.value = PhotoViewState.Success(
                         photos = response.photos,
+                        featuredPhotos = response.photos.shuffled().take(10),
                         currentPage = response.page,
                         hasMorePages = response.nextPage != null,
                         searchQuery = query
@@ -94,10 +100,11 @@ class PhotoViewModel(
     private fun loadMorePhotos() {
         val currentState = _viewState.value
 
-        val (currentPhotos, currentPage, hasMorePages, searchQuery) = when (currentState) {
+        val (currentPhotos, currentFeaturedPhotos, currentPage, hasMorePages, searchQuery) = when (currentState) {
             is PhotoViewState.Success -> {
-                Tuple4(
+                Tuple5(
                     currentState.photos,
+                    currentState.featuredPhotos,
                     currentState.currentPage,
                     currentState.hasMorePages,
                     currentState.searchQuery
@@ -105,8 +112,9 @@ class PhotoViewModel(
             }
 
             is PhotoViewState.LoadingMore -> {
-                Tuple4(
+                Tuple5(
                     currentState.photos,
+                    currentState.featuredPhotos,
                     currentState.currentPage,
                     currentState.hasMorePages,
                     currentState.searchQuery
@@ -114,8 +122,9 @@ class PhotoViewModel(
             }
 
             is PhotoViewState.Error -> {
-                Tuple4(
+                Tuple5(
                     currentState.photos,
+                    currentState.featuredPhotos,
                     currentState.currentPage,
                     currentState.hasMorePages,
                     currentState.searchQuery
@@ -127,9 +136,10 @@ class PhotoViewModel(
 
         if (!hasMorePages) return
 
-        viewModelScope.launch {
+        screenModelScope.launch {
             _viewState.value = PhotoViewState.LoadingMore(
                 photos = currentPhotos,
+                featuredPhotos = currentFeaturedPhotos,
                 currentPage = currentPage,
                 hasMorePages = hasMorePages,
                 searchQuery = searchQuery
@@ -146,15 +156,17 @@ class PhotoViewModel(
                 onSuccess = { response ->
                     _viewState.value = PhotoViewState.Success(
                         photos = currentPhotos + response.photos,
+                        featuredPhotos = currentFeaturedPhotos,
                         currentPage = response.page,
                         hasMorePages = response.nextPage != null,
                         searchQuery = searchQuery
                     )
                 },
-                onFailure = { exception ->
+                onFailure = {
                     _viewState.value = PhotoViewState.Error(
                         message = "Failed to load more photos",
                         photos = currentPhotos,
+                        featuredPhotos = currentFeaturedPhotos,
                         currentPage = currentPage,
                         hasMorePages = hasMorePages,
                         searchQuery = searchQuery
@@ -166,11 +178,10 @@ class PhotoViewModel(
     }
 
     private fun retryLoading() {
-        val currentState = _viewState.value
-        val searchQuery = when (currentState) {
-            is PhotoViewState.Success -> currentState.searchQuery
-            is PhotoViewState.LoadingMore -> currentState.searchQuery
-            is PhotoViewState.Error -> currentState.searchQuery
+        val searchQuery = when (val state = _viewState.value) {
+            is PhotoViewState.Success -> state.searchQuery
+            is PhotoViewState.LoadingMore -> state.searchQuery
+            is PhotoViewState.Error -> state.searchQuery
             else -> ""
         }
 
@@ -182,9 +193,10 @@ class PhotoViewModel(
     }
 }
 
-private data class Tuple4<A, B, C, D>(
+private data class Tuple5<A, B, C, D, E>(
     val first: A,
     val second: B,
     val third: C,
-    val fourth: D
+    val fourth: D,
+    val fifth: E
 )

@@ -16,7 +16,7 @@ junit = "4.13.2"
 kermit = "2.0.6"
 kotlin = "2.2.0"
 ktorClientCore = "3.2.1"
-voyagerNavigator = "1.1.0-beta03"
+voyager = "1.1.0-beta03"
 back-handler = "1.8.2"
 koin = "4.1.0"
 kotlinx-serialization = "1.9.0"
@@ -43,18 +43,25 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorCli
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientCore" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientCore" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientCore" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientCore" }
 ui-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "back-handler" }
-voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerNavigator" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
-koin-compose-viewmodel-nav = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+#koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+#koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+#koin-compose-viewmodel-nav = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
 
 [bundles]
 koin = [
-    "koin-android",
-    "koin-compose-viewmodel",
-    "koin-compose-viewmodel-nav"
+    "koin-core",
+    #    "koin-android",
+    #    "koin-compose-viewmodel",
+    #    "koin-compose-viewmodel-nav"
 ]
 
 ktor-common = [

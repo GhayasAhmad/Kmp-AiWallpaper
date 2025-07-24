@@ -40,6 +40,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.ktor.client.core)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -53,9 +55,10 @@ kotlin {
             implementation(libs.ui.backhandler)
             implementation(libs.kotlinx.serialization.json)
 
-
-            // Navigator
+            //Voyager
             implementation(libs.voyager.navigator)
+            implementation(libs.voyager.screenModel)
+            implementation(libs.voyager.koin)
 
             //Ktor
             implementation(libs.bundles.ktor.common)
@@ -74,7 +77,7 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         appleMain.dependencies {
-
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -109,16 +112,3 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
-
-//buildKonfig {
-//    defaultConfig {
-//        val apiKey: String = gradleLocalProperties(rootDir).getProperty("API_KEY")
-//
-//        require(apiKey.isNotEmpty()) {
-//            "Register your api key from developer and place it in local.properties as `API_KEY`"
-//        }
-//
-//        buildConfigField(STRING, "API_KEY", apiKey)
-//    }
-//}
-
