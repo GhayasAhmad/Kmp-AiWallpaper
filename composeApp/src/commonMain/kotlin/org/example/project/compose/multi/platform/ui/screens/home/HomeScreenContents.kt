@@ -26,6 +26,7 @@ import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.example.project.compose.multi.platform.domain.models.Photo
 import org.example.project.compose.multi.platform.presentation.state.PhotoViewState
 import org.example.project.compose.multi.platform.ui.screens.home.components.FeatureCard
 import org.example.project.compose.multi.platform.ui.screens.home.components.PhotoListItemWithAspectRatio
@@ -36,6 +37,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun HomeScreenContentPreview() {
     HomeScreenContent(
         state = PhotoViewState.Loading,
+        onPhotoClick = {},
         onBackClick = {}
     )
 }
@@ -44,6 +46,7 @@ fun HomeScreenContentPreview() {
 @Composable
 fun HomeScreenContent(
     state: PhotoViewState,
+    onPhotoClick: (Photo) -> Unit,
     onBackClick: () -> Unit
 ) {
 
@@ -86,7 +89,8 @@ fun HomeScreenContent(
 
                     items(currentState.photos) { photo ->
                         PhotoListItemWithAspectRatio(
-                            photo = photo
+                            photo = photo,
+                            onClick = onPhotoClick
                         )
                     }
                 }
@@ -136,7 +140,10 @@ fun HomeScreenContent(
                     }
 
                     items(currentState.photos) { photo ->
-                        PhotoListItemWithAspectRatio(photo = photo)
+                        PhotoListItemWithAspectRatio(
+                            photo = photo,
+                            onClick = onPhotoClick
+                        )
                     }
                 }
             }

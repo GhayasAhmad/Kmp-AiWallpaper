@@ -1,6 +1,7 @@
 package org.example.project.compose.multi.platform.ui.screens.home.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -28,6 +29,7 @@ import kotlin.math.absoluteValue
 @Composable
 fun PhotoListItemWithAspectRatio(
     photo: Photo,
+    onClick: (Photo) -> Unit
 ) {
     val aspectRatio = remember(photo.id) {
         if (photo.width > 0 && photo.height > 0) {
@@ -49,11 +51,12 @@ fun PhotoListItemWithAspectRatio(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
+            .clickable { onClick(photo) }
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(aspectRatio) // Consistent aspect ratio
+                .aspectRatio(aspectRatio)
                 .clip(RoundedCornerShape(16.dp))
         ) {
             if (imageState.isLoading && !imageState.hasError) {

@@ -12,9 +12,9 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import org.example.project.compose.multi.platform.presentation.PhotoScreenModel
 import org.example.project.compose.multi.platform.presentation.intent.PhotoIntent
 import org.example.project.compose.multi.platform.ui.screens.exit.ExitScreen
+import org.example.project.compose.multi.platform.ui.screens.imagePreview.FullScreenImagePreviewScreen
 
 class HomeScreen() : Screen {
-
 
     @Composable
     override fun Content() {
@@ -33,6 +33,13 @@ class HomeScreen() : Screen {
 
         HomeScreenContent(
             state = state,
+            onPhotoClick = {
+                navigator?.push(
+                    FullScreenImagePreviewScreen(
+                        photo = it
+                    )
+                )
+            },
             onBackClick = {
                 navigator?.push(ExitScreen())
             }

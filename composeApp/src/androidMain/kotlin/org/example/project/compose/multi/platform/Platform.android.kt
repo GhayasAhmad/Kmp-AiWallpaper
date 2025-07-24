@@ -22,9 +22,11 @@ actual fun initKoin() {
 
 actual fun createHttpClient(): HttpClient = HttpClient(OkHttp) {
     install(ContentNegotiation) {
-        json(Json {
-            ignoreUnknownKeys = true
-        })
+        json(
+            Json {
+                ignoreUnknownKeys = true
+            }
+        )
     }
     install(Logging) {
         level = LogLevel.BODY
