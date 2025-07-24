@@ -61,12 +61,10 @@ fun FullScreenImagePreviewScreenContent(
 ) {
     var scale by remember { mutableStateOf(1f) }
     var offset by remember { mutableStateOf(Offset.Zero) }
-    var rotationState by remember { mutableStateOf(0f) }
 
     val transformableState = rememberTransformableState { zoomChange, panChange, rotationChange ->
         scale *= zoomChange
         offset += panChange
-        rotationState += rotationChange
     }
 
     Box(
@@ -82,7 +80,6 @@ fun FullScreenImagePreviewScreenContent(
                         onDoubleTap = {
                             scale = 1f
                             offset = Offset.Zero
-                            rotationState = 0f
                         }
                     )
                 }
@@ -90,7 +87,6 @@ fun FullScreenImagePreviewScreenContent(
                     detectTransformGestures { _, pan, zoom, rotation ->
                         scale *= zoom
                         offset += pan
-                        rotationState += rotation
                     }
                 }
                 .transformable(transformableState)
@@ -104,7 +100,6 @@ fun FullScreenImagePreviewScreenContent(
                         scaleY = scale,
                         translationX = offset.x,
                         translationY = offset.y,
-                        rotationZ = rotationState
                     )
                     .align(Alignment.Center),
                 contentScale = ContentScale.Fit
