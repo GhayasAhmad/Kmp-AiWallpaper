@@ -12,7 +12,9 @@ Built using Kotlin Multiplatform, AI Wallpaper offers blazing fast performance a
 <br>
 
 > [!important]
-> This repository contains an app built with Kotlin Multiplatform (KMP) and Compose Multiplatform (CMP) targeting both iOS and Android. Created as a learning project to explore cross-platform development and UI sharing across platforms.
+> This repository contains an app built with Compose Multiplatform (CMP) targeting both iOS and
+> Android. Created as a learning project to explore cross-platform development and UI sharing across
+> platforms.
 
 <br>
 
