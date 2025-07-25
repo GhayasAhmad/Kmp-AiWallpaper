@@ -1,44 +1,33 @@
 package org.example.project.compose.multi.platform.ui.screens.imagePreview
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.gestures.detectTransformGestures
-import androidx.compose.foundation.gestures.rememberTransformableState
-import androidx.compose.foundation.gestures.transformable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import coil3.compose.AsyncImage
+import com.mohamedrejeb.calf.permissions.ExperimentalPermissionsApi
+import com.mohamedrejeb.calf.permissions.Permission
+import com.mohamedrejeb.calf.permissions.isGranted
+import com.mohamedrejeb.calf.permissions.rememberPermissionState
+import io.github.vinceglb.filekit.FileKit
+import kotlinx.coroutines.launch
 import org.example.project.compose.multi.platform.domain.models.Photo
+import org.example.project.compose.multi.platform.utils.saveImage
 
 class FullScreenImagePreviewScreen(
     val photo: Photo
 ) : Screen {
 
-    @OptIn(ExperimentalComposeUiApi::class)
+    @OptIn(ExperimentalComposeUiApi::class, ExperimentalPermissionsApi::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
+        val coroutineScope = rememberCoroutineScope()
+
+        val writePermissionState = rememberPermissionState(
+            Permission.WriteStorage
+        )
 
         BackHandler(true) {
             navigator?.pop()
@@ -47,73 +36,15 @@ class FullScreenImagePreviewScreen(
         FullScreenImagePreviewScreenContent(
             photo = photo,
             onButtonClick = {
-
+                if (writePermissionState.status.isGranted) {
+                    coroutineScope.launch {
+                        FileKit.saveImage(photo.src.original)
+                    }
+                } else {
+                    writePermissionState.launchPermissionRequest()
+                }
             }
         )
     }
 
-}
-
-@Composable
-fun FullScreenImagePreviewScreenContent(
-    photo: Photo,
-    onButtonClick: () -> Unit
-) {
-    var scale by remember { mutableStateOf(1f) }
-    var offset by remember { mutableStateOf(Offset.Zero) }
-
-    val transformableState = rememberTransformableState { zoomChange, panChange, rotationChange ->
-        scale *= zoomChange
-        offset += panChange
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onDoubleTap = {
-                            scale = 1f
-                            offset = Offset.Zero
-                        }
-                    )
-                }
-                .pointerInput(Unit) {
-                    detectTransformGestures { _, pan, zoom, rotation ->
-                        scale *= zoom
-                        offset += pan
-                    }
-                }
-                .transformable(transformableState)
-        ) {
-            AsyncImage(
-                model = photo.src.original,
-                contentDescription = photo.alt,
-                modifier = Modifier
-                    .graphicsLayer(
-                        scaleX = scale,
-                        scaleY = scale,
-                        translationX = offset.x,
-                        translationY = offset.y,
-                    )
-                    .align(Alignment.Center),
-                contentScale = ContentScale.Fit
-            )
-        }
-
-        Button(
-            onClick = onButtonClick,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            Text("Download")
-        }
-    }
 }

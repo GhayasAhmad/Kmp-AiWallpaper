@@ -1,6 +1,7 @@
 package org.example.project.compose.multi.platform
 
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.darwin.Darwin
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -33,3 +34,5 @@ actual fun createHttpClient(): HttpClient = HttpClient(Darwin) {
         level = LogLevel.ALL
     }
 }
+
+actual fun createHttpClientEngine(): HttpClientEngine = Darwin.create()

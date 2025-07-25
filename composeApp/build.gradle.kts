@@ -72,6 +72,12 @@ kotlin {
 
             //Logger
             implementation(libs.kermit)
+
+            //Permissions
+            implementation(libs.calf.permissions)
+
+            //FileKit
+            implementation(libs.filekit.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

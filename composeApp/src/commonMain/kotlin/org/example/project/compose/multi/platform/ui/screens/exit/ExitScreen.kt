@@ -71,9 +71,9 @@ fun ExitScreenContent(
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             AsyncImage(
                 model = Res.getUri("drawable/exit_image.png"),

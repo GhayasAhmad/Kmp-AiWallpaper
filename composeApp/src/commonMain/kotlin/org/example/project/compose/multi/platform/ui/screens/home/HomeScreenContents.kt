@@ -70,7 +70,10 @@ fun HomeScreenContent(
                     verticalItemSpacing = 8.dp
                 ) {
                     item(span = StaggeredGridItemSpan.FullLine) {
-                        FeatureCard(currentState)
+                        FeatureCard(
+                            state = currentState,
+                            onClick = onPhotoClick
+                        )
                     }
 
                     item(span = StaggeredGridItemSpan.FullLine) {
@@ -132,7 +135,10 @@ fun HomeScreenContent(
                     verticalItemSpacing = 8.dp
                 ) {
                     item(span = StaggeredGridItemSpan.FullLine) {
-                        FeatureCard(currentState)
+                        FeatureCard(
+                            state = currentState,
+                            onClick = onPhotoClick
+                        )
                     }
 
                     item(span = StaggeredGridItemSpan.FullLine) {

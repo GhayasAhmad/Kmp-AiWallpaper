@@ -20,6 +20,8 @@ voyager = "1.1.0-beta03"
 back-handler = "1.8.2"
 koin = "4.1.0"
 kotlinx-serialization = "1.9.0"
+calfPermissions = "0.8.0"
+filekit = "0.10.0-beta04"
 
 
 
@@ -49,19 +51,15 @@ ui-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.r
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
-
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-#koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-#koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
-#koin-compose-viewmodel-nav = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
+calf-permissions = { module = "com.mohamedrejeb.calf:calf-permissions", version.ref = "calfPermissions" }
+filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "filekit" }
+
 
 [bundles]
 koin = [
-    "koin-core",
-    #    "koin-android",
-    #    "koin-compose-viewmodel",
-    #    "koin-compose-viewmodel-nav"
+    "koin-core"
 ]
 
 ktor-common = [

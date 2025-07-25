@@ -2,6 +2,7 @@ package org.example.project.compose.multi.platform
 
 import android.os.Build
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -32,3 +33,6 @@ actual fun createHttpClient(): HttpClient = HttpClient(OkHttp) {
         level = LogLevel.BODY
     }
 }
+
+
+actual fun createHttpClientEngine(): HttpClientEngine = OkHttp.create()

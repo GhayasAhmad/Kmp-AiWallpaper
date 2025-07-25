@@ -1,5 +1,6 @@
 package org.example.project.compose.multi.platform.ui.screens.home.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import org.example.project.compose.multi.platform.domain.models.Photo
 import org.example.project.compose.multi.platform.presentation.state.PhotoViewState
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -36,12 +38,13 @@ fun FeatureCardPreview() {
 
 @Composable
 fun FeatureCard(
-    state: PhotoViewState? = null
+    state: PhotoViewState? = null,
+    onClick: ((Photo) -> Unit)? = null
 ) {
     val featuredPhotos = (state as? PhotoViewState.Success)?.featuredPhotos
     if (featuredPhotos.isNullOrEmpty()) return
 
-    Column {
+    Column() {
         Text(
             text = "Featured",
             modifier = Modifier
@@ -58,11 +61,13 @@ fun FeatureCard(
             itemsIndexed(
                 items = featuredPhotos
             ) { index, photo ->
-                val startPadding = if (index == 0) 16.dp else 0.dp
-                val endPadding = if (index == featuredPhotos.lastIndex) 16.dp else 0.dp
+                val startPadding = if (index == 0) 4.dp else 0.dp
+                val endPadding = if (index == featuredPhotos.lastIndex) 4.dp else 0.dp
                 FeaturedItem(
-                    url = photo.src.landscape,
-                    modifier = Modifier.padding(start = startPadding, end = endPadding)
+                    photo = photo,
+                    modifier = Modifier
+                        .padding(start = startPadding, end = endPadding),
+                    onClick = onClick
                 )
             }
         }
@@ -72,8 +77,9 @@ fun FeatureCard(
 
 @Composable
 fun FeaturedItem(
-    url: String,
-    modifier: Modifier
+    photo: Photo,
+    modifier: Modifier,
+    onClick: ((Photo) -> Unit)? = null
 ) {
     var isImageLoading by remember { mutableStateOf(true) }
 
@@ -92,10 +98,14 @@ fun FeaturedItem(
         }
 
         AsyncImage(
-            model = url,
+            model = photo.src.landscape,
             contentDescription = "Featured Image",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable {
+                    onClick?.invoke(photo)
+                },
             onSuccess = {
                 isImageLoading = false
             },
