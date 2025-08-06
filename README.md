@@ -34,6 +34,22 @@ Also, __[follow me](https://github.com/GhayasAhmad)__ on GitHub for my next crea
 </br>
 </br>
 
+## 🚀 Let’s Work Together
+
+I’m actively open to freelance opportunities, collaborations, and contract-based Android or Compose
+Multiplatform app development projects.
+
+- 📩 **Hire Me for Your Next Project**: Whether you’re a startup, business, or individual looking to
+  build a mobile app with modern technologies like Jetpack Compose, Kotlin Multiplatform, or Android
+  native, I’m available for consulting and development work.
+- 🤝 **Business Inquiries & Partnerships**: If you’re interested in technical collaboration,
+  white-label development, or building innovative digital products together, feel free to reach out.
+- 💼 **Available for Remote Work, Short-Term Contracts, or Long-Term Engagements**
+
+---
+
+![](https://komarev.com/ghpvc/?username=ardakazanci&style=for-the-badge)
+
 📬 **Get in Touch**  
 Feel free to contact me via
 </br>
