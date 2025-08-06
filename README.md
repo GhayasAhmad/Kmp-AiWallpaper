@@ -48,7 +48,7 @@ Multiplatform app development projects.
 
 ---
 
-![](https://komarev.com/ghpvc/?username=ardakazanci&style=for-the-badge)
+![](https://komarev.com/ghpvc/?username=GhayasAhamd&style=for-the-badge)
 
 📬 **Get in Touch**  
 Feel free to contact me via
